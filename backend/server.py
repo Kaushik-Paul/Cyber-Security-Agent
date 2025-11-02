@@ -13,10 +13,11 @@ from mcp_servers import create_semgrep_server
 load_dotenv()
 
 app = FastAPI(title="Cybersecurity Analyzer API")
+openrouter_model = "litellm/openrouter/nvidia/nemotron-nano-12b-v2-vl:free"
 
 # Configure CORS for development and production
 cors_origins = [
-    "http://localhost:3000",    # Local development
+    "http://localhost:3001",    # Local development
     "http://frontend:3000",     # Docker development
 ]
 
@@ -63,8 +64,8 @@ def validate_request(request: AnalyzeRequest) -> None:
 
 def check_api_keys() -> None:
     """Verify required API keys are configured."""
-    if not os.getenv("OPENAI_API_KEY"):
-        raise HTTPException(status_code=500, detail="OpenAI API key not configured")
+    if not os.getenv("OPENROUTER_API_KEY"):
+        raise HTTPException(status_code=500, detail="Openrouter API key not configured")
 
 
 def create_security_agent(semgrep_server) -> Agent:
@@ -72,7 +73,7 @@ def create_security_agent(semgrep_server) -> Agent:
     return Agent(
         name="Security Researcher",
         instructions=SECURITY_RESEARCHER_INSTRUCTIONS,
-        model="gpt-4.1-mini",
+        model=openrouter_model,
         mcp_servers=[semgrep_server],
         output_type=SecurityReport,
     )
