@@ -105,6 +105,11 @@ resource "google_cloud_run_service" "app" {
         }
 
         env {
+          name  = "OPENROUTER_API_KEY"
+          value = var.openrouter_api_key
+        }
+
+        env {
           name  = "SEMGREP_APP_TOKEN"
           value = var.semgrep_app_token
         }

@@ -22,6 +22,13 @@ variable "openai_api_key" {
   default     = ""
 }
 
+variable "openrouter_api_key" {
+  description = "Openrouter API key for the application"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 variable "semgrep_app_token" {
   description = "Semgrep app token for security scanning"
   type        = string
