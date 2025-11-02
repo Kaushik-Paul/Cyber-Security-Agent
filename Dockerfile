@@ -28,10 +28,6 @@ COPY backend/ ./
 # Copy Next.js static export (from 'out' directory)
 COPY --from=frontend-build /app/out ./static
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
-
 # Expose port for Cloud Run / Azure Container Instances
 EXPOSE 8000
 
