@@ -2,10 +2,10 @@
 
 [![Live Website](https://img.shields.io/badge/Live_Website-6c63ff?logo=rocket&logoColor=white&labelColor=5a52d3)](https://www.codesecurity.pp.ua/)
 
-An AI-powered **Cybersecurity Analyzer** that inspects Python code for security vulnerabilities. It combines:
+An **LLM-first Cybersecurity Analyzer** that inspects Python code for security vulnerabilities. Rather than being just a Semgrep UI, it showcases how to build a **reliable, tool-using LLM agent** for security-critical workloads. It combines:
 
-- **OpenAI-compatible LLMs** (via OpenRouter/LiteLLM) for intelligent reasoning
-- **Semgrep** for static security scanning
+- **OpenAI-compatible LLMs** (via OpenRouter/LiteLLM and `openai-agents`) for structured reasoning and tool-calling
+- **Semgrep** for static security scanning, invoked as a tool by the LLM
 - A modern **Next.js** frontend
 - A **FastAPI** backend
 - Containerized deployment to **Google Cloud Run** (and optionally **Azure Container Apps**) using **Terraform**
@@ -22,13 +22,16 @@ An AI-powered **Cybersecurity Analyzer** that inspects Python code for security 
 ## Features
 
 - **Upload Python files** (`.py`) and run a full security analysis
+- **LLM-first analysis pipeline**:
+  - The LLM agent always calls Semgrep once, then performs its own reasoning on top of the findings.
+  - Produces a single, consolidated security report you can trust.
 - **Hybrid scanning**:
   - Semgrep static analysis via MCP
-  - LLM-powered reasoning on top of Semgrep findings
-- **Structured security reports**:
+  - LLM-powered reasoning that adds missing findings, context, and prioritized fixes
+- **Structured, typed security reports**:
   - Executive summary
   - Per-issue title, description, vulnerable snippet, recommended fix
-  - CVSS score and severity (critical / high / medium / low)
+  - CVSS score and severity (critical / high / medium / low), validated via Pydantic models
 - **Production-ready deployment**:
   - Single Docker image
   - Terraform modules for:
@@ -36,7 +39,7 @@ An AI-powered **Cybersecurity Analyzer** that inspects Python code for security 
     - Google Cloud Run (used in production at https://www.codesecurity.pp.ua/)
 - **Cloud-friendly defaults**:
   - Scales to zero on Cloud Run and Azure
-  - 1 vCPU / 2GiB RAM tuned for Semgrep
+  - 1 vCPU / 2GiB RAM tuned for Semgrep and the LLM tooling
 
 ---
 
@@ -62,10 +65,11 @@ An AI-powered **Cybersecurity Analyzer** that inspects Python code for security 
 
 - **Agents & Semgrep MCP** (`backend/context.py`, `backend/mcp_servers.py`)
   - Security agent configured with `SECURITY_RESEARCHER_INSTRUCTIONS`
-  - Uses `semgrep-mcp` via MCP over stdio
+  - Uses `openai-agents` + LiteLLM to drive a tool-using LLM that talks to `semgrep-mcp` over MCP
   - Enforces:
     - Single Semgrep scan per request
     - `config: "auto"` for all scans
+  - LLM outputs are parsed into the `SecurityReport` Pydantic model, ensuring stable, strongly typed responses
 
 - **Infrastructure & Deployment** (`terraform/`)
   - **Dockerfile** at repo root:
