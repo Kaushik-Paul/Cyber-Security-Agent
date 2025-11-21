@@ -1,6 +1,6 @@
 # Cyber-Security Agent
 
-[![Live Website](https://img.shields.io/badge/Live_Website-6c63ff?logo=rocket&logoColor=white&labelColor=5a52d3)](https://www.codesecurity.pp.ua/)
+[![Live Website](https://img.shields.io/badge/Live_Website-6c63ff?logo=rocket&logoColor=white&labelColor=5a52d3)](https://projects.kaushikpaul.co.in/cyber-security-agent)
 
 An **LLM-first Cybersecurity Analyzer** that inspects Python code for security vulnerabilities. Rather than being just a Semgrep UI, it showcases how to build a **reliable, tool-using LLM agent** for security-critical workloads. It combines:
 
@@ -10,7 +10,7 @@ An **LLM-first Cybersecurity Analyzer** that inspects Python code for security v
 - A **FastAPI** backend
 - Containerized deployment to **Google Cloud Run** (and optionally **Azure Container Apps**) using **Terraform**
 
-- **Live Demo**: https://www.codesecurity.pp.ua/
+- **Live Demo**: https://projects.kaushikpaul.co.in/cyber-security-agent
 - **Backend**: FastAPI running in a single container on Cloud Run/Azure
 - **Frontend**: Next.js 15 UI served by FastAPI as static files
 - **Security Engine**:
@@ -36,7 +36,7 @@ An **LLM-first Cybersecurity Analyzer** that inspects Python code for security v
   - Single Docker image
   - Terraform modules for:
     - Azure Container Apps
-    - Google Cloud Run (used in production at https://www.codesecurity.pp.ua/)
+    - Google Cloud Run (used in production at https://projects.kaushikpaul.co.in/cyber-security-agent)
 - **Cloud-friendly defaults**:
   - Scales to zero on Cloud Run and Azure
   - 1 vCPU / 2GiB RAM tuned for Semgrep and the LLM tooling
@@ -169,12 +169,12 @@ All secrets are loaded from a `.env` file in the **project root**:
 
 The production instance of this project is deployed to **Google Cloud Run** and available at:
 
-- **https://www.codesecurity.pp.ua/**
+- **https://projects.kaushikpaul.co.in/cyber-security-agent**
 
 This repo includes Terraform configurations for both Azure and GCP:
 
 - **Azure Container Apps** — `terraform/azure`
-- **Google Cloud Run** — `terraform/gcp` (used for `codesecurity.pp.ua`)
+- **Google Cloud Run** — `terraform/gcp` (used for `projects.kaushikpaul.co.in/cyber-security-agent`)
 
 High-level workflow:
 
