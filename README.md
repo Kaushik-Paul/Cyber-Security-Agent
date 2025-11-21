@@ -187,6 +187,17 @@ See **[INSTALLATION.md](./INSTALLATION.md)** for full setup and deployment comma
 
 ---
 
+## Operational Responsibilities
+
+Running this project in your own cloud or on-prem environment means you are solely responsible for:
+
+- Provisioning and paying for all underlying infrastructure and related services
+- Implementing appropriate network security controls, including DDoS protection and rate limiting
+
+The project owner and contributors are not responsible or liable for any infrastructure charges, overages, or other financial losses incurred as a result of abusive traffic, including but not limited to DDoS attacks, misconfiguration, or misuse of this project.
+
+---
+
 ## Tech Stack
 
 | Category            | Technologies |
